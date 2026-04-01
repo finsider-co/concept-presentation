@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>概念展現</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Base styles to prevent any default scrolling and ensure strict viewport adherence */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #262626; /* Darker backdrop to make the presentation pop */
+            overflow: hidden;
+            font-family: 'PingFang HK', 'Microsoft JhengHei', 'Helvetica Neue', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* The strict 1920x1080 canvas */
+        #app-canvas {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 1920px;
+            height: 1080px;
+            margin-left: -960px;
+            margin-top: -540px;
+            transform-origin: center center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Slide Transition Animations */
+        .slide-layer {
+            position: absolute;
+            top: 100px; /* Header height */
+            left: 0;
+            width: 1920px;
+            height: 980px;
+            /* Adjusted padding to perfectly fit 1080p vertical space without cutting off content */
+            padding: 24px 80px 24px 80px; 
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(20px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide-layer.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        /* Gradient Text Utility */
+        .text-gradient {
+            background: linear-gradient(135deg, #FF9966 0%, #FF5E62 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Interactive pulse for clickable elements */
+        .clickable-pulse:hover {
+            filter: drop-shadow(0 0 12px rgba(255, 94, 98, 0.6));
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1920x1080 Fixed Aspect Ratio Canvas -->
+    <div id="app-canvas" class="bg-[#F5F6FA] rounded-2xl overflow-hidden flex flex-col">
+        
+        <!-- Header: 100px Height -->
+        <header class="h-[100px] bg-white/80 backdrop-blur-md shadow-sm flex items-center justify-between px-12 z-50 shrink-0 border-b border-gray-100">
+            <div class="flex items-center gap-5">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#FF9966] to-[#FF5E62] flex items-center justify-center text-white font-black text-2xl shadow-lg shadow-[#FF5E62]/30">
+                    ST
+                </div>
+                <div>
+                    <h1 class="text-3xl font-black text-gray-800 tracking-wider">概念展現</h1>
+                    <p class="text-lg text-gray-400 font-medium tracking-wide -mt-1">Concept Presentation</p>
+                </div>
+            </div>
+            
+            <div class="flex bg-gray-100/80 p-1.5 rounded-2xl gap-1">
+                <button onclick="goToSlide(0)" id="tab-0" class="px-8 py-3 rounded-xl text-xl font-bold transition-all duration-300 bg-white text-gray-800 shadow-sm border border-gray-200/50">生活基本需求</button>
+                <button onclick="goToSlide(1)" id="tab-1" class="px-8 py-3 rounded-xl text-xl font-bold transition-all duration-300 text-gray-400 hover:text-gray-700">28,000天人生藍圖</button>
+                <button onclick="goToSlide(2)" id="tab-2" class="px-8 py-3 rounded-xl text-xl font-bold transition-all duration-300 text-gray-400 hover:text-gray-700">家庭財務防護網</button>
+            </div>
+        </header>
+
+        <!-- Slide 1: Basic Necessities -->
+        <div id="slide-0" class="slide-layer active">
+            <!-- Title Area -->
+            <div class="mb-4 shrink-0">
+                <h2 class="text-[48px] font-black text-gray-800 mb-1">生活基本需求 <span class="text-3xl text-gray-400 font-normal ml-5 tracking-wide">Basic Necessities of Life</span></h2>
+                <p class="text-2xl text-gray-500 font-medium mt-2">你的收入決定了你家人的生活質素（飲食、衣著、居所）。</p>
+            </div>
+      
+            <!-- Content Area -->
+            <div class="flex-1 flex gap-16 w-full h-full">
+                <!-- Left: Diagram (Absolute Coordinate System for 100% precision) -->
+                <div class="flex-1 bg-white rounded-[32px] shadow-2xl p-8 relative overflow-hidden flex items-center justify-center border border-gray-100">
+                    
+                    <!-- Diagram Canvas 1000x700 -->
+                    <div class="relative w-[900px] h-[650px]">
+                        <!-- Connecting SVG Lines -->
+                        <svg width="900" height="650" viewBox="0 0 900 650" class="absolute inset-0 pointer-events-none z-0">
+                            <defs>
+                                <marker id="arrow-gray" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+                                    <path d="M 0 0 L 12 6 L 0 12 z" fill="#CBD5E1" />
+                                </marker>
+                                <marker id="arrow-red" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+                                    <path d="M 0 0 L 12 6 L 0 12 z" fill="#FF5E62" />
+                                </marker>
+                            </defs>
+                            <!-- Income to Necessities (Outward curves) -->
+                            <path d="M 450 330 Q 300 250 150 190" fill="none" stroke="#CBD5E1" stroke-width="4" marker-end="url(#arrow-gray)" />
+                            <line x1="450" y1="330" x2="450" y2="190" stroke="#CBD5E1" stroke-width="4" marker-end="url(#arrow-gray)" />
+                            <path d="M 450 330 Q 600 250 750 190" fill="none" stroke="#CBD5E1" stroke-width="4" marker-end="url(#arrow-gray)" />
+                            
+                            <!-- Work to Income (Inward lines) -->
+                            <line x1="250" y1="520" x2="410" y2="440" stroke="#CBD5E1" stroke-width="5" marker-end="url(#arrow-gray)" />
+                            <line x1="650" y1="520" x2="490" y2="440" stroke="#FF5E62" stroke-width="6" stroke-dasharray="10,10" marker-end="url(#arrow-red)" />
+                        </svg>
+
+                        <!-- Elements positioned at exact centers of the SVGs -->
+                        <div class="absolute w-[180px] h-[140px] bg-white border-2 border-gray-200 shadow-lg rounded-3xl flex flex-col items-center justify-center gap-3 z-10 left-[150px] top-[120px] -translate-x-1/2 -translate-y-1/2 hover:scale-105 transition-transform duration-300">
+                            <i data-lucide="utensils" class="text-[#FF9966] w-12 h-12"></i>
+                            <span class="text-3xl font-bold text-gray-700">飲食</span>
+                        </div>
+                        <div class="absolute w-[180px] h-[140px] bg-white border-2 border-gray-200 shadow-lg rounded-3xl flex flex-col items-center justify-center gap-3 z-10 left-[450px] top-[120px] -translate-x-1/2 -translate-y-1/2 hover:scale-105 transition-transform duration-300">
+                            <i data-lucide="shirt" class="text-[#FF5E62] w-12 h-12"></i>
+                            <span class="text-3xl font-bold text-gray-700">衣著</span>
+                        </div>
+                        <div class="absolute w-[180px] h-[140px] bg-white border-2 border-gray-200 shadow-lg rounded-3xl flex flex-col items-center justify-center gap-3 z-10 left-[750px] top-[120px] -translate-x-1/2 -translate-y-1/2 hover:scale-105 transition-transform duration-300">
+                            <i data-lucide="home" class="text-[#FF9966] w-12 h-12"></i>
+                            <span class="text-3xl font-bold text-gray-700">居所</span>
+                        </div>
+
+                        <!-- Central Income Box -->
+                        <div class="absolute w-[340px] h-[160px] bg-gradient-to-r from-[#FF9966] to-[#FF5E62] shadow-2xl shadow-[#FF5E62]/40 rounded-[40px] flex flex-col items-center justify-center text-white z-10 left-[450px] top-[380px] -translate-x-1/2 -translate-y-1/2 hover:scale-105 transition-transform duration-300">
+                            <span class="text-[72px] font-black leading-none mb-1 drop-shadow-md">$</span>
+                            <span class="text-4xl font-bold tracking-[0.2em] drop-shadow-md">收入</span>
+                        </div>
+
+                        <!-- You Work -->
+                        <div class="absolute flex flex-col items-center gap-4 z-10 left-[250px] top-[580px] -translate-x-1/2 -translate-y-1/2">
+                            <div class="w-24 h-24 rounded-full border-[6px] border-gray-800 flex items-center justify-center bg-white shadow-lg">
+                                <span class="text-6xl font-black text-gray-800">✗</span>
+                            </div>
+                            <span class="text-4xl font-black text-gray-800 tracking-wide">你工作 <span class="text-2xl text-gray-400 font-bold block text-center mt-2">(You Work)</span></span>
+                        </div>
+
+                        <!-- I Work -->
+                        <div class="absolute flex flex-col items-center gap-4 z-10 left-[650px] top-[580px] -translate-x-1/2 -translate-y-1/2">
+                            <div class="w-24 h-24 rounded-full border-[6px] border-[#FF5E62] flex items-center justify-center bg-[#FF5E62] text-white shadow-lg shadow-[#FF5E62]/50">
+                                <i data-lucide="shield-alert" class="w-12 h-12"></i>
+                            </div>
+                            <span class="text-4xl font-black text-[#FF5E62] tracking-wide">我工作 <span class="text-2xl text-gray-400 font-bold block text-center mt-2">(I Work)</span></span>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Right: Limitations -->
+                <div class="w-[650px] flex flex-col gap-5 shrink-0 h-full">
+                    <div class="bg-white rounded-[32px] shadow-2xl p-8 h-full flex flex-col justify-center border border-gray-100 relative overflow-hidden">
+                        <!-- Decorative bg -->
+                        <div class="absolute -right-20 -top-20 w-64 h-64 bg-gradient-to-br from-[#FF9966]/10 to-[#FF5E62]/10 rounded-full blur-3xl z-0"></div>
+
+                        <div class="relative z-10">
+                            <h3 class="text-[32px] font-black mb-4 text-gradient tracking-wide">
+                                保障法則與限制
+                            </h3>
+                            <p class="text-[22px] text-gray-500 mb-6 leading-relaxed font-medium">
+                                如果發生意外，我必須立即接手責任。但我能提供的保障<strong class="text-gray-800">有限</strong>：
+                            </p>
+            
+                            <div class="space-y-4">
+                                <!-- Item 1 -->
+                                <div class="flex items-center bg-[#F5F6FA] p-5 rounded-3xl gap-5 border border-gray-200 hover:shadow-lg transition-all hover:-translate-y-1 duration-300">
+                                    <div class="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-[#FF9966] shadow-sm shrink-0">
+                                        <i data-lucide="shield-alert" class="w-7 h-7"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="text-xl font-bold text-gray-800 mb-1">身故保障</h4>
+                                        <p class="text-[18px] text-gray-500 font-medium">提供你的 10 倍年收入</p>
+                                    </div>
+                                    <div class="text-[30px] font-black text-[#FF5E62] bg-white px-4 py-2 rounded-2xl shadow-sm border border-gray-100">10x</div>
+                                </div>
+                                <!-- Item 2 -->
+                                <div class="flex items-center bg-[#F5F6FA] p-5 rounded-3xl gap-5 border border-gray-200 hover:shadow-lg transition-all hover:-translate-y-1 duration-300">
+                                    <div class="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-[#FF9966] shadow-sm shrink-0">
+                                        <i data-lucide="heart-pulse" class="w-7 h-7"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="text-xl font-bold text-gray-800 mb-1">疾病保障</h4>
+                                        <p class="text-[18px] text-gray-500 font-medium">提供你的 5 倍年收入</p>
+                                    </div>
+                                    <div class="text-[30px] font-black text-[#FF5E62] bg-white px-4 py-2 rounded-2xl shadow-sm border border-gray-100">5x</div>
+                                </div>
+                                <!-- Item 3 -->
+                                <div class="flex items-center bg-[#F5F6FA] p-5 rounded-3xl gap-5 border border-gray-200 hover:shadow-lg transition-all hover:-translate-y-1 duration-300">
+                                    <div class="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-[#FF9966] shadow-sm shrink-0">
+                                        <i data-lucide="wallet" class="w-7 h-7"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="text-xl font-bold text-gray-800 mb-1">退休收入</h4>
+                                        <p class="text-[18px] text-gray-500 font-medium">現在需儲蓄收入的 20%</p>
+                                    </div>
+                                    <div class="text-[30px] font-black text-[#FF5E62] bg-white px-4 py-2 rounded-2xl shadow-sm border border-gray-100">20%</div>
+                                </div>
+                                <!-- Item 4 -->
+                                <div class="flex items-center bg-[#F5F6FA] p-5 rounded-3xl gap-5 border border-gray-200 hover:shadow-lg transition-all hover:-translate-y-1 duration-300">
+                                    <div class="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-[#FF9966] shadow-sm shrink-0">
+                                        <i data-lucide="graduation-cap" class="w-7 h-7"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="text-xl font-bold text-gray-800 mb-1">高等教育</h4>
+                                        <p class="text-[18px] text-gray-500 font-medium">為子女儲蓄收入的 5%</p>
+                                    </div>
+                                    <div class="text-[30px] font-black text-[#FF5E62] bg-white px-4 py-2 rounded-2xl shadow-sm border border-gray-100">5%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: 28000 Days -->
+        <div id="slide-1" class="slide-layer">
+            <!-- Title Area -->
+            <div class="mb-4 shrink-0 flex justify-between items-end">
+                <div>
+                    <h2 class="text-[48px] font-black text-gray-800 mb-1">28,000 天人生藍圖 <span class="text-3xl text-gray-400 font-normal ml-5 tracking-wide">The 28,000 Presentation</span></h2>
+                    <p class="text-2xl text-gray-500 font-medium mt-2">人的一生平均有 28,000 天（約 80 歲），我們該如何精準規劃這 4 個重要階段？</p>
+                </div>
+                <!-- Interactive Stage Controls -->
+                <div class="flex gap-3 bg-gray-100 p-2 rounded-2xl">
+                    <button id="stage-btn-0" onclick="setStage28k(0)" class="px-5 py-2.5 rounded-xl font-bold text-lg transition-all duration-300">0-20歲</button>
+                    <button id="stage-btn-1" onclick="setStage28k(1)" class="px-5 py-2.5 rounded-xl font-bold text-lg transition-all duration-300">20-40歲</button>
+                    <button id="stage-btn-2" onclick="setStage28k(2)" class="px-5 py-2.5 rounded-xl font-bold text-lg transition-all duration-300">40-60歲</button>
+                    <button id="stage-btn-3" onclick="setStage28k(3)" class="px-5 py-2.5 rounded-xl font-bold text-lg transition-all duration-300">60-80歲</button>
+                </div>
+            </div>
+      
+            <!-- Content Area -->
+            <div class="flex-1 flex gap-12 w-full h-full">
+                <!-- Left: The Chart -->
+                <div class="flex-1 bg-white rounded-[32px] shadow-2xl p-8 flex items-center justify-center relative overflow-hidden border border-gray-100">
+                    
+                    <div class="relative w-[520px] h-[520px] ml-4 mb-6">
+                        <!-- SVG Circle Chart -->
+                        <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-2xl overflow-visible">
+                            <!-- Retirment Quadrant (Stage 3: 60-80) -->
+                            <path id="svg-path-3" onclick="setStage28k(3)" d="M 50 50 L 10 50 A 40 40 0 0 1 50 10 Z" fill="#FAFAFA" stroke="#E5E7EB" stroke-width="0.8" class="cursor-pointer transition-all duration-300 hover:opacity-80" />
+                            <!-- Stage 0 Quadrant (0-20) -->
+                            <path id="svg-path-0" onclick="setStage28k(0)" d="M 50 50 L 50 10 A 40 40 0 0 1 90 50 Z" fill="#FAFAFA" stroke="#E5E7EB" stroke-width="0.8" class="cursor-pointer transition-all duration-300 hover:opacity-80" />
+                            <!-- Stage 1 Quadrant (20-40) -->
+                            <path id="svg-path-1" onclick="setStage28k(1)" d="M 50 50 L 90 50 A 40 40 0 0 1 50 90 Z" fill="#FAFAFA" stroke="#E5E7EB" stroke-width="0.8" class="cursor-pointer transition-all duration-300 hover:opacity-80" />
+                            <!-- Stage 2 Quadrant (40-60) -->
+                            <path id="svg-path-2" onclick="setStage28k(2)" d="M 50 50 L 50 90 A 40 40 0 0 1 10 50 Z" fill="#FAFAFA" stroke="#E5E7EB" stroke-width="0.8" class="cursor-pointer transition-all duration-300 hover:opacity-80" />
+                            
+                            <!-- Cross Lines -->
+                            <line x1="50" y1="10" x2="50" y2="90" stroke="#9CA3AF" stroke-width="1.5" />
+                            <line x1="10" y1="50" x2="90" y2="50" stroke="#9CA3AF" stroke-width="1.5" />
+                            
+                            <!-- Arrow for Retire -->
+                            <line x1="50" y1="50" x2="25" y2="25" stroke="#FF5E62" stroke-width="1.5" />
+                            <polygon points="25,25 34,25 25,34" fill="#FF5E62" />
+            
+                            <!-- Outer Circle -->
+                            <circle cx="50" cy="50" r="40" fill="none" stroke="#4B5563" stroke-width="2.5" />
+
+                            <!-- Numbers positioned via SVG for perfection -->
+                            <text x="50" y="4" font-size="6" font-weight="900" text-anchor="middle" fill="#1F2937">80 / 0</text>
+                            <text x="96" y="52" font-size="6" font-weight="900" text-anchor="start" fill="#1F2937">20</text>
+                            <text x="50" y="99" font-size="6" font-weight="900" text-anchor="middle" fill="#1F2937">40</text>
+                            <text x="4" y="52" font-size="6" font-weight="900" text-anchor="end" fill="#1F2937">60</text>
+                            
+                            <!-- Earning Phase Highlight Arc (20-60) -->
+                            <path d="M 94 50 A 44 44 0 0 1 6 50" fill="none" stroke="#FF9966" stroke-width="1.5" stroke-dasharray="2 2" class="opacity-80" />
+                        </svg>
+        
+                        <!-- Earning Phase Visual Label -->
+                        <div class="absolute bottom-[-70px] left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-[#FF9966] to-[#FF5E62] text-white px-6 py-2.5 rounded-2xl font-black text-[22px] shadow-lg shadow-[#FF5E62]/40 flex items-center gap-3 whitespace-nowrap z-20 border-[3px] border-white pointer-events-none">
+                            <i data-lucide="coins" class="w-6 h-6"></i>
+                            人生唯一賺錢期 (14,000天)
+                        </div>
+
+                        <!-- Text Overlays mapping over the SVG -->
+                        <div id="stage-text-0" class="absolute top-[12%] left-[88%] text-left transform -translate-y-1/2 transition-all duration-500 pointer-events-none">
+                            <span class="block text-3xl font-black text-gray-800 tracking-widest whitespace-nowrap">學習</span>
+                            <span class="block text-3xl font-black text-gray-800 tracking-widest mt-1 whitespace-nowrap">遊玩</span>
+                        </div>
+                        <div id="stage-text-1" class="absolute bottom-[16%] left-[88%] text-left transform translate-y-1/2 transition-all duration-500 pointer-events-none">
+                            <span class="block text-[24px] font-black text-gray-800 leading-relaxed whitespace-nowrap">首份工作<br/>買首架車<br/>買首層樓<br/>結婚生子</span>
+                        </div>
+                        <div id="stage-text-2" class="absolute bottom-[16%] left-[12%] text-right transform -translate-x-full translate-y-1/2 w-48 transition-all duration-500 pointer-events-none">
+                            <span class="block text-[24px] font-black text-gray-800 leading-relaxed whitespace-nowrap">事業/創業<br/>換第二架車<br/>投資物業<br/>撫養孩子</span>
+                        </div>
+                        <div id="stage-text-3" class="absolute top-[12%] left-[12%] text-right transform -translate-x-full -translate-y-1/2 w-48 transition-all duration-500 pointer-events-none">
+                            <div class="bg-white/80 backdrop-blur-md rounded-xl p-3 shadow-lg border border-red-100 inline-block whitespace-nowrap">
+                                <span class="block text-3xl font-black text-[#FF5E62] tracking-widest">無收入</span>
+                                <span class="block text-xl font-bold text-gray-500 mt-1">退休 (Retire)</span>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- Math calculation float -->
+                    <div id="calc-box" class="absolute top-8 right-8 bg-[#F5F6FA] p-8 rounded-[32px] border border-gray-200 shadow-xl text-right z-10 w-[360px] transition-all duration-500 opacity-0 scale-90 pointer-events-none">
+                        <div class="text-4xl font-black text-gray-800 mb-2 font-mono">28,000 日</div>
+                        <div class="text-[28px] font-black text-gray-800 border-b-4 border-gray-800 pb-4 mb-4 font-mono flex justify-end gap-3 items-end">
+                            <span class="text-3xl">-</span> 14,000 日 
+                        </div>
+                        <div class="text-[42px] font-black text-gradient leading-none mb-3 font-mono">14,000 日</div>
+                        <div class="text-[20px] font-bold text-gray-500 leading-snug">實現夢想的黃金時間<br>(只剩一半)</div>
+                    </div>
+                </div>
+        
+                <!-- Right: 4 Fears & 4 Products -->
+                <div class="w-[850px] bg-white rounded-[32px] shadow-2xl p-8 flex flex-col shrink-0 border border-gray-100 h-full justify-center">
+                    <h3 class="text-[32px] font-black mb-6 text-gray-800 leading-tight">
+                        人生的 <span class="text-gradient">4 大擔憂</span> 與 <span class="text-gradient">4 大解決方案</span>
+                    </h3>
+                    
+                    <div class="flex flex-col justify-between gap-4 relative">
+                        <!-- Items ordered chronologically -->
+                        <!-- 0-20歲 (Education) -->
+                        <div id="fear-card-0" class="flex bg-[#F5F6FA] rounded-[24px] p-5 border-l-[12px] border-[#FF9966] items-center gap-4 shadow-sm transition-all duration-500 cursor-pointer hover:bg-gray-50" onclick="setStage28k(0)">
+                            <div class="flex-1">
+                                <h4 class="text-[24px] font-bold text-gray-800 leading-tight">1. 子女有良好起步基礎？</h4>
+                                <p class="text-[18px] text-gray-500 mt-1 font-medium">給予最優質教育的絕對保證</p>
+                            </div>
+                            <i data-lucide="arrow-right" class="text-gray-400 w-8 h-8 mx-1 shrink-0"></i>
+                            <div class="w-[300px] h-[76px] bg-gradient-to-r from-[#FF9966] to-[#FF5E62] rounded-[20px] px-5 flex items-center gap-4 shadow-lg shrink-0 transform transition-transform">
+                                <i data-lucide="graduation-cap" class="text-white w-8 h-8 shrink-0"></i>
+                                <span class="text-[22px] font-bold text-white tracking-wide">保證教育基金</span>
+                            </div>
+                        </div>
+
+                        <!-- 20-40歲 (Life Insurance) -->
+                        <div id="fear-card-1" class="flex bg-[#F5F6FA] rounded-[24px] p-5 border-l-[12px] border-[#FF9966] items-center gap-4 shadow-sm transition-all duration-500 cursor-pointer hover:bg-gray-50" onclick="setStage28k(1)">
+                            <div class="flex-1">
+                                <h4 class="text-[24px] font-bold text-gray-800 leading-tight">2. 活不到 60 歲怎麼辦？</h4>
+                                <p class="text-[18px] text-gray-500 mt-1 font-medium">家庭突然失去經濟支柱</p>
+                            </div>
+                            <i data-lucide="arrow-right" class="text-gray-400 w-8 h-8 mx-1 shrink-0"></i>
+                            <div class="w-[300px] h-[76px] bg-gradient-to-r from-[#FF9966] to-[#FF5E62] rounded-[20px] px-5 flex items-center gap-4 shadow-lg shrink-0 transform transition-transform">
+                                <i data-lucide="umbrella" class="text-white w-8 h-8 shrink-0"></i>
+                                <span class="text-[22px] font-bold text-white tracking-wide">人壽保險</span>
+                            </div>
+                        </div>
+
+                        <!-- 40-60歲 (Critical Illness) -->
+                        <div id="fear-card-2" class="flex bg-[#F5F6FA] rounded-[24px] p-5 border-l-[12px] border-[#FF9966] items-center gap-4 shadow-sm transition-all duration-500 cursor-pointer hover:bg-gray-50" onclick="setStage28k(2)">
+                            <div class="flex-1">
+                                <h4 class="text-[24px] font-bold text-gray-800 leading-tight">3. 無法工作到 60 歲？</h4>
+                                <p class="text-[18px] text-gray-500 mt-1 font-medium">因傷殘或嚴重疾病導致事業中斷</p>
+                            </div>
+                            <i data-lucide="arrow-right" class="text-gray-400 w-8 h-8 mx-1 shrink-0"></i>
+                            <div class="w-[300px] h-[76px] bg-gradient-to-r from-[#FF9966] to-[#FF5E62] rounded-[20px] px-5 flex items-center gap-4 shadow-lg shrink-0 transform transition-transform">
+                                <i data-lucide="heart-pulse" class="text-white w-8 h-8 shrink-0"></i>
+                                <span class="text-[22px] font-bold text-white tracking-wide">危疾 / 入息保障</span>
+                            </div>
+                        </div>
+
+                        <!-- 60-80歲 (Retirement) -->
+                        <div id="fear-card-3" class="flex bg-[#F5F6FA] rounded-[24px] p-5 border-l-[12px] border-[#FF9966] items-center gap-4 shadow-sm transition-all duration-500 cursor-pointer hover:bg-gray-50" onclick="setStage28k(3)">
+                            <div class="flex-1">
+                                <h4 class="text-[24px] font-bold text-gray-800 leading-tight">4. 退休需要多少錢才夠？</h4>
+                                <p class="text-[18px] text-gray-500 mt-1 font-medium">擔心長壽風險與通脹問題</p>
+                            </div>
+                            <i data-lucide="arrow-right" class="text-gray-400 w-8 h-8 mx-1 shrink-0"></i>
+                            <div class="w-[300px] h-[76px] bg-gradient-to-r from-[#FF9966] to-[#FF5E62] rounded-[20px] px-5 flex items-center gap-4 shadow-lg shrink-0 transform transition-transform">
+                                <i data-lucide="trending-up" class="text-white w-8 h-8 shrink-0"></i>
+                                <span class="text-[22px] font-bold text-white tracking-wide">退休金規劃</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Father's Presentation -->
+        <div id="slide-2" class="slide-layer">
+            <!-- Title Area -->
+            <div class="mb-4 shrink-0 flex justify-between items-end">
+                <div>
+                    <h2 class="text-[48px] font-black text-gray-800 mb-1">家庭財務防護網 <span class="text-3xl text-gray-400 font-normal ml-5 tracking-wide">Father's Presentation</span></h2>
+                    <p class="text-2xl text-gray-500 font-medium mt-2">一個傳承三十年的經典概念：如果工作能力消失，重力法則會讓家庭水平墜落。</p>
+                </div>
+                <!-- Interactive Stage Controls -->
+                <div class="flex gap-3 bg-gray-100 p-2 rounded-2xl">
+                    <button id="father-btn-0" onclick="setStageFathers(0)" class="px-5 py-2.5 rounded-xl font-bold text-lg transition-all duration-300">階段一：舒適</button>
+                    <button id="father-btn-1" onclick="setStageFathers(1)" class="px-5 py-2.5 rounded-xl font-bold text-lg transition-all duration-300">階段二：救濟</button>
+                </div>
+            </div>
+      
+            <!-- Content Area -->
+            <div class="flex-1 flex gap-12 w-full h-full">
+                <!-- Left: Diagram -->
+                <div class="w-[850px] bg-white rounded-[32px] shadow-2xl p-8 flex flex-col items-center justify-center relative border border-gray-100 shrink-0">
+                    
+                    <div class="relative w-[750px] h-[650px]">
+                        <!-- SVG Coordinate System: 800x700 mapping to 750x650 physical space -->
+                        <svg viewBox="0 0 800 700" class="w-full h-full overflow-visible">
+                            <!-- Main Structural Lines -->
+                            <line x1="150" y1="650" x2="650" y2="50" stroke="#4B5563" stroke-width="4" />
+                            <line x1="650" y1="50" x2="650" y2="650" stroke="#4B5563" stroke-width="4" />
+                            
+                            <!-- Levels -->
+                            <line x1="500" y1="200" x2="650" y2="200" stroke="#9CA3AF" stroke-width="2" />
+                            <line x1="0" y1="350" x2="800" y2="350" stroke="#111827" stroke-width="6" />
+                            <line x1="330" y1="500" x2="650" y2="500" stroke="#9CA3AF" stroke-width="2" />
+                            <line x1="200" y1="650" x2="800" y2="650" stroke="#111827" stroke-width="6" />
+                            
+                            <!-- Shaded Ground under Comfortable -->
+                            <path d="M 0 350 L 375 350 L 200 550 L 0 550 Z" fill="#F3F4F6" opacity="0.8" />
+                            
+                            <!-- Hash marks for ground -->
+                            <g stroke="#9CA3AF" stroke-width="2">
+                                <line x1="20" y1="350" x2="0" y2="380" />
+                                <line x1="60" y1="350" x2="40" y2="380" />
+                                <line x1="100" y1="350" x2="80" y2="380" />
+                                <line x1="140" y1="350" x2="120" y2="380" />
+                                <line x1="180" y1="350" x2="160" y2="380" />
+                                <line x1="220" y1="350" x2="200" y2="380" />
+                                <line x1="260" y1="350" x2="240" y2="380" />
+                                <line x1="300" y1="350" x2="280" y2="380" />
+                                <line x1="340" y1="350" x2="320" y2="380" />
+                            </g>
+              
+                            <!-- The "Work" Pivot (Cross) -->
+                            <g id="father-work-cross" transform="translate(100, 350)" class="transition-opacity duration-500">
+                                <line x1="-30" y1="-30" x2="30" y2="30" stroke="#111827" stroke-width="8" />
+                                <line x1="-30" y1="30" x2="30" y2="-30" stroke="#111827" stroke-width="8" />
+                            </g>
+              
+                            <!-- The Money Weight system -->
+                            <g id="father-money-weight" class="transition-opacity duration-500 opacity-30">
+                                <line x1="100" y1="350" x2="100" y2="600" stroke="#4B5563" stroke-width="6" />
+                                <circle id="money-circle" cx="100" cy="630" r="40" fill="#FFF" stroke="#111827" stroke-width="6" class="transition-colors duration-500" />
+                                <text id="money-text" x="100" y="645" text-anchor="middle" font-size="36" font-weight="900" fill="#111827" class="transition-colors duration-500">$$</text>
+                            </g>
+              
+                            <!-- Arrow falling -->
+                            <defs>
+                                <marker id="arrow-fall" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto-start-reverse">
+                                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#9CA3AF" />
+                                </marker>
+                            </defs>
+                            <line id="father-fall-arrow" x1="300" y1="370" x2="240" y2="520" stroke="#9CA3AF" stroke-width="4" marker-end="url(#arrow-fall)" class="transition-opacity duration-500 opacity-0" />
+
+                            <!-- Ghost Target for Charity -->
+                            <g id="father-ghost-ball" class="transition-opacity duration-500 opacity-0">
+                                <circle cx="200" cy="580" r="45" fill="#FFF" stroke="#9CA3AF" stroke-width="4" stroke-dasharray="8,8" />
+                                <text x="200" y="592" text-anchor="middle" font-size="28" font-weight="900" fill="#9CA3AF">家庭</text>
+                            </g>
+
+                            <!-- Held Family (The Moving Ball) -->
+                            <g id="father-family-ball" class="transition-transform duration-[800ms] ease-in-out clickable-pulse" onclick="toggleFatherStage()">
+                                <circle cx="340" cy="300" r="45" fill="#FFF" stroke="#FF5E62" stroke-width="8" />
+                                <text x="340" y="312" text-anchor="middle" font-size="28" font-weight="900" fill="#FF5E62" class="select-none pointer-events-none">家庭</text>
+                            </g>
+                        </svg>
+        
+                        <!-- Text Labels positioned mapping to SVG Y coordinates -->
+                        <div class="absolute left-[90%] top-[25%]">
+                            <span class="text-[30px] font-black text-gray-800">奢華</span>
+                        </div>
+                        <div class="absolute left-[90%] top-[45%] bg-[#FFF0ED] px-4 py-2 rounded-xl border border-red-100 shadow-sm z-10 w-[140px]">
+                            <span class="text-[32px] font-black text-[#FF5E62]">舒適</span>
+                        </div>
+                        <div class="absolute left-[90%] top-[68%]">
+                            <span class="text-[30px] font-black text-gray-800">貧窮</span>
+                        </div>
+                        <div class="absolute left-[90%] top-[90%]">
+                            <span class="text-[30px] font-black text-gray-800">救濟</span>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Right: Explanations -->
+                <div class="flex-1 flex flex-col justify-between h-full gap-6">
+                    
+                    <div class="bg-white rounded-[32px] shadow-xl p-8 border-l-[16px] border-[#FF9966] border-y border-r border-gray-100 relative flex-[0.8] flex flex-col justify-center">
+                        <i data-lucide="quote" class="absolute right-6 top-6 w-10 h-10 text-gray-100"></i>
+                        <h3 class="text-[30px] font-black text-gray-800 mb-3 leading-tight z-10 relative">
+                            如果人無法工作，<br/>必須讓<span class="text-[#FF5E62]">「金錢」</span>為我們工作。
+                        </h3>
+                        <div class="relative flex-1">
+                            <p id="father-text-0" class="absolute inset-0 text-[22px] text-gray-500 leading-relaxed font-medium transition-all duration-500 origin-left">
+                                假設家庭現時生活<strong class="text-[#FF5E62] font-black">舒適</strong>。如圖示，只要有人在工作，家庭的球就會被穩穩支撐在這個水平面上。
+                            </p>
+                            <p id="father-text-1" class="absolute inset-0 text-[22px] text-gray-500 leading-relaxed font-medium transition-all duration-500 opacity-0 transform scale-95 origin-left pointer-events-none">
+                                如果工作的人被移除（因身故或疾病），這個家庭球將因失去支撐，直接掉落到需要依賴<strong class="text-gray-800 font-black">救濟</strong>的境地。
+                            </p>
+                        </div>
+                    </div>
+        
+                    <div id="father-solution-box" class="bg-gradient-to-br from-[#FF9966] to-[#FF5E62] rounded-[32px] shadow-2xl shadow-[#FF5E62]/30 p-8 text-white transform transition-all duration-700 opacity-0 translate-y-8 pointer-events-none flex-[1.2] flex flex-col justify-center">
+                        <h4 class="text-[26px] font-black mb-4 flex items-center gap-3 text-white/90">
+                            <div class="bg-white/20 p-2 rounded-2xl"><i data-lucide="shield-check" class="w-8 h-8"></i></div>
+                            解決方案：入息保障機制
+                        </h4>
+                        <p class="text-[22px] font-bold leading-relaxed mb-4 text-white/95">
+                            為了將家庭球維持在原有水平，我們需要立即注入一筆備用資金。最有效的數學公式是：
+                        </p>
+                        <div class="bg-white/10 p-6 rounded-[28px] backdrop-blur-md border border-white/30 text-center shadow-inner">
+                            <span class="block text-[42px] font-black mb-2 tracking-wide drop-shadow-lg">準備 5 倍年收入</span>
+                            <span class="block text-[20px] font-bold opacity-90">建立您的入息保障網 (Income Protection)</span>
+                        </div>
+                        
+                        <div class="mt-5 flex items-center justify-around text-[20px] font-bold opacity-90 border-t-2 border-white/20 pt-5">
+                            <span class="flex items-center gap-3"><i data-lucide="alert-circle" class="w-7 h-7"></i> 針對：身故 (Death)</span>
+                            <span class="flex items-center gap-3"><i data-lucide="activity" class="w-7 h-7"></i> 針對：嚴重疾病 (Illness)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Pixel-Perfect Scaling Logic (Center origin, strictly maintains 1920x1080 bounds)
+        function handleResize() {
+            const canvas = document.getElementById('app-canvas');
+            const scaleX = window.innerWidth / 1920;
+            const scaleY = window.innerHeight / 1080;
+            // Use Math.min to always ensure the full 1920x1080 rectangle fits inside viewport
+            const scale = Math.min(scaleX, scaleY); 
+            // Apply scale without moving coordinates (handled by absolute 50% left/top positioning)
+            canvas.style.transform = `scale(${scale})`;
+        }
+        
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Initial call
+
+        // Slide Navigation Logic
+        let currentSlide = 0;
+        const totalSlides = 3;
+
+        function updateSlides() {
+            for (let i = 0; i < totalSlides; i++) {
+                const slide = document.getElementById(`slide-${i}`);
+                const tab = document.getElementById(`tab-${i}`);
+                
+                if (i === currentSlide) {
+                    slide.classList.add('active');
+                    tab.classList.remove('text-gray-400', 'hover:text-gray-700', 'bg-transparent', 'border-transparent');
+                    tab.classList.add('bg-white', 'text-gray-800', 'shadow-sm', 'border', 'border-gray-200/50');
+                } else {
+                    slide.classList.remove('active');
+                    tab.classList.add('text-gray-400', 'hover:text-gray-700', 'bg-transparent', 'border-transparent');
+                    tab.classList.remove('bg-white', 'text-gray-800', 'shadow-sm', 'border', 'border-gray-200/50');
+                }
+            }
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlides();
+        }
+
+        // 28,000 Days Interactive Stage Logic
+        function setStage28k(stage) {
+            for (let i = 0; i < 4; i++) {
+                const path = document.getElementById(`svg-path-${i}`);
+                const text = document.getElementById(`stage-text-${i}`);
+                const card = document.getElementById(`fear-card-${i}`);
+                const btn = document.getElementById(`stage-btn-${i}`);
+
+                // Manage base transforms to avoid overwriting Tailwind positioning
+                let baseTransform = '';
+                if (i === 0) baseTransform = 'translate(0%, -50%)';
+                if (i === 1) baseTransform = 'translate(0%, 50%)';
+                if (i === 2) baseTransform = 'translate(-100%, 50%)';
+                if (i === 3) baseTransform = 'translate(-100%, -50%)';
+
+                if (i === stage) {
+                    // Activate highlighting
+                    path.setAttribute('fill', '#FFF0ED');
+                    path.setAttribute('stroke', '#FF5E62');
+                    path.setAttribute('stroke-width', '2');
+                    
+                    text.style.opacity = '1';
+                    text.style.transform = baseTransform + ' scale(1.05)';
+
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateX(0)';
+                    card.classList.add('shadow-xl', 'bg-white');
+                    card.classList.remove('shadow-sm', 'bg-[#F5F6FA]');
+                    
+                    btn.classList.add('bg-gradient-to-r', 'from-[#FF9966]', 'to-[#FF5E62]', 'text-white', 'shadow-md');
+                    btn.classList.remove('bg-gray-100', 'text-gray-500');
+                } else {
+                    // Dim inactive stages
+                    path.setAttribute('fill', '#FAFAFA');
+                    path.setAttribute('stroke', '#E5E7EB');
+                    path.setAttribute('stroke-width', '0.8');
+                    
+                    text.style.opacity = '0.2';
+                    text.style.transform = baseTransform + ' scale(0.95)';
+
+                    card.style.opacity = '0.35';
+                    card.style.transform = 'translateX(30px)';
+                    card.classList.remove('shadow-xl', 'bg-white');
+                    card.classList.add('shadow-sm', 'bg-[#F5F6FA]');
+                    
+                    btn.classList.remove('bg-gradient-to-r', 'from-[#FF9966]', 'to-[#FF5E62]', 'text-white', 'shadow-md');
+                    btn.classList.add('bg-gray-100', 'text-gray-500');
+                }
+            }
+
+            // Calculation Box only shows during Stage 3 (Retirement Phase)
+            const calcBox = document.getElementById('calc-box');
+            if (stage === 3) {
+                calcBox.style.opacity = '1';
+                calcBox.style.transform = 'scale(1)';
+            } else {
+                calcBox.style.opacity = '0';
+                calcBox.style.transform = 'scale(0.9)';
+            }
+        }
+
+        // Initialize Stage 0 automatically on load
+        setStage28k(0);
+
+        // Father's Presentation Interactive Logic
+        let currentFatherStage = 0;
+
+        function toggleFatherStage() {
+            currentFatherStage = currentFatherStage === 0 ? 1 : 0;
+            setStageFathers(currentFatherStage);
+        }
+
+        function setStageFathers(stage) {
+            currentFatherStage = stage;
+            const btn0 = document.getElementById('father-btn-0');
+            const btn1 = document.getElementById('father-btn-1');
+            
+            const workCross = document.getElementById('father-work-cross');
+            const familyBall = document.getElementById('father-family-ball');
+            const fallArrow = document.getElementById('father-fall-arrow');
+            const ghostBall = document.getElementById('father-ghost-ball');
+            
+            const moneyWeight = document.getElementById('father-money-weight');
+            const moneyCircle = document.getElementById('money-circle');
+            const moneyText = document.getElementById('money-text');
+            
+            const text0 = document.getElementById('father-text-0');
+            const text1 = document.getElementById('father-text-1');
+            const solutionBox = document.getElementById('father-solution-box');
+
+            if (stage === 0) {
+                // 階段一：舒適 (Comfortable)
+                btn0.className = 'px-5 py-2.5 rounded-xl font-bold text-lg transition-all duration-300 bg-gradient-to-r from-[#FF9966] to-[#FF5E62] text-white shadow-md';
+                btn1.className = 'px-5 py-2.5 rounded-xl font-bold text-lg transition-all duration-300 text-gray-500 bg-transparent hover:text-gray-700';
+                
+                // SVG States
+                workCross.style.opacity = '1';
+                familyBall.style.transform = 'translate(0px, 0px)';
+                fallArrow.style.opacity = '0';
+                ghostBall.style.opacity = '0';
+                
+                moneyWeight.style.opacity = '0.3';
+                moneyCircle.setAttribute('stroke', '#111827');
+                moneyText.setAttribute('fill', '#111827');
+
+                // Text States (Positioned absolutely on top of each other)
+                text0.style.opacity = '1';
+                text0.style.transform = 'scale(1)';
+                text0.style.pointerEvents = 'auto';
+                
+                text1.style.opacity = '0';
+                text1.style.transform = 'scale(0.95)';
+                text1.style.pointerEvents = 'none';
+
+                // Solution Box Hidden
+                solutionBox.style.opacity = '0';
+                solutionBox.style.transform = 'translateY(20px)';
+                solutionBox.style.pointerEvents = 'none';
+
+            } else {
+                // 階段二：救濟 (Charity / Crisis)
+                btn1.className = 'px-5 py-2.5 rounded-xl font-bold text-lg transition-all duration-300 bg-gradient-to-r from-[#FF9966] to-[#FF5E62] text-white shadow-md';
+                btn0.className = 'px-5 py-2.5 rounded-xl font-bold text-lg transition-all duration-300 text-gray-500 bg-transparent hover:text-gray-700';
+
+                // SVG States
+                workCross.style.opacity = '0.1';
+                // 模擬物理掉落：往左下墜落到救濟層 (cx=200, cy=580)
+                familyBall.style.transform = 'translate(-140px, 280px)';
+                fallArrow.style.opacity = '1';
+                ghostBall.style.opacity = '1';
+
+                // 喚醒金錢防護網
+                moneyWeight.style.opacity = '1';
+                moneyCircle.setAttribute('stroke', '#FF5E62');
+                moneyText.setAttribute('fill', '#FF5E62');
+                
+                // Text States
+                text0.style.opacity = '0';
+                text0.style.transform = 'scale(0.95)';
+                text0.style.pointerEvents = 'none';
+                
+                text1.style.opacity = '1';
+                text1.style.transform = 'scale(1)';
+                text1.style.pointerEvents = 'auto';
+
+                // Solution Box Pops up
+                solutionBox.style.opacity = '1';
+                solutionBox.style.transform = 'translateY(0)';
+                solutionBox.style.pointerEvents = 'auto';
+            }
+        }
+
+        // Initialize Father's Presentation Stage 0 automatically on load
+        setStageFathers(0);
+    </script>
+</body>
+</html>
